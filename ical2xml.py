@@ -49,7 +49,7 @@ def ical2xml(icalData):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='Converts iCal to XML')
 	parser.add_argument("-o", "--output", help="XML output file path")
-	parser.add_argument("input", help="iCal input path")
+	parser.add_argument("input", help="iCal input - filepath or iCal string")
 	args = parser.parse_args()
 
 	if os.path.isfile(args.input):	
