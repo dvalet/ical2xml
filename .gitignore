@@ -1,0 +1,4 @@
+ical2xml.spec
+trash/*
+build/*
+__pycache__/*
