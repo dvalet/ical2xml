@@ -4,11 +4,15 @@ import re
 import argparse
 import os
 
+#remove Empty Elements from list
+def removeEmptyElements(line_list):
+	return [x for x in line_list if x != '']
+
 def ical2xml(icalData):
 	#Detectecting new line and split into list
 	lines = icalData.replace('\r','').split('\n')
 	#Remove empty elements
-	lines = [x for x in lines if x != '']
+	lines = removeEmptyElements(lines)
 
 	#Append all elements with tab or space as first charecter to previous element and delete
 	#the element with tab or space
