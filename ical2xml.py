@@ -10,18 +10,13 @@ def removeEmptyElements(line_list):
 
 def ical2xml(icalData):
 	#Detectecting new line and split into list
-	lines = icalData.replace('\r','').split('\n')
+	#Append all elements with tab or space as first character to previous element and delete
+	#the element with tab or space
+	lines = icalData.replace('\r','').replace('\n ',' ').split('\n')
+
 	#Remove empty elements
 	lines = removeEmptyElements(lines)
 
-	#Append all elements with tab or space as first charecter to previous element and delete
-	#the element with tab or space
-	i=0
-	for m in range(1,len(lines)):
-		if lines[m-i][0]==' ' or lines[m-i][0]=='\t':
-			lines[m-1-i] += lines[m-i]
-			del(lines[m-i])
-			i += 1
 	#Begin with xml version
 	xml='<?xml version="1.0"?>\n'
 
