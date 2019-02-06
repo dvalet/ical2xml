@@ -3,6 +3,7 @@
 import re
 import argparse
 import os
+import sys
 
 #remove Empty Elements from list
 def removeEmptyElements(line_list):
@@ -45,21 +46,34 @@ def ical2xml(icalData):
 
 # Main loop
 if __name__ == '__main__':
+
+    # Initialize CLI
     parser = argparse.ArgumentParser(description='Converts iCal to XML')
     parser.add_argument("-o", "--output", help="XML output file path")
-    parser.add_argument("input", help="iCal input - filepath or iCal string")
+
+    # read from pipe
+    if not sys.stdin.isatty():
+        inputString=sys.stdin.read()
+    else:
+        parser.add_argument("input", help="iCal input - filepath or iCal string")
+        inputString=args.input
+
     args = parser.parse_args()
 
-    if os.path.isfile(args.input):
-        with open(args.input,'r') as ifile:
+    # Check if input is a path to a file and read the file
+    if os.path.isfile(inputString):
+        with open(inputString,'r') as ifile:
             text_ical=ifile.read()
             xml=ical2xml(text_ical)
+    # if input is not a file read as iCal string
     else:
-        xml=ical2xml(args.input)
+        xml=ical2xml(inputString)
 
+    # check for optional output file path
     if args.output:
         with open(args.output,'w') as ofile:
             ofile.write(xml)
+    # if no file path is given print xml file
     else:
-        print(xml,end='')
+        sys.stdout.write(xml)
 
