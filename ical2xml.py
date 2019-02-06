@@ -54,11 +54,12 @@ if __name__ == '__main__':
     # read from pipe
     if not sys.stdin.isatty():
         inputString=sys.stdin.read()
+        args=parser.parse_args()
+        
     else:
         parser.add_argument("input", help="iCal input - filepath or iCal string")
+        args=parser.parse_args()
         inputString=args.input
-
-    args = parser.parse_args()
 
     # Check if input is a path to a file and read the file
     if os.path.isfile(inputString):
