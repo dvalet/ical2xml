@@ -3,3 +3,5 @@ trash/*
 build/*
 __pycache__/*
 *.swo
+dist/*
+__pycache__/*
